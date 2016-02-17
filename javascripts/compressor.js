@@ -24,28 +24,33 @@ function playSound() {
     source = context.createBufferSource();
     source.buffer = myAudioBuffer;
     source.connect(context.destination);
-    source.start();
+    source.start();   
 }
 
 function stopSound() {
     if (source) {
         source.stop();
-    }
+   }
 }
+
+
 
 function addCompressor() {
   
-  compressor.threshold.value = -50;
+  compressor.threshold.value = -20;
   compressor.knee.value = 40;
   compressor.ratio.value = 12;
   compressor.reduction.value = -20;
   compressor.attack.value = 0;
   compressor.release.value = 0.25;
   
-  source = context.createBufferSource();
-  source.buffer = myAudioBuffer;
   source.connect(compressor);
   compressor.connect(context.destination);
-  source.start();
+}
+
+function removeCompressor() {
   
+  compressor.disconnect(context.destination);
+  source.connect(context.destination);
+
 }
